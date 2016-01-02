@@ -64,7 +64,7 @@ def index():
             closing_prices = (np.array(df.ix['data'][0])[:,4]).astype(float)
             volume = (np.array(df.ix['data'][0])[:,5]).astype(float)
             #factor=10**(len(str(int(volume[0]/closing_prices[0]))))
-            volume = volume/factor
+            #volume = volume/factor
             app.stock_name = df['dataset']['name']
             extra_text_index = app.stock_name.find("Prices, Dividends, Splits and Trading Volume")
             if extra_text_index != -1:
@@ -76,7 +76,7 @@ def index():
             # select the tools we want
             TOOLS="pan,wheel_zoom,box_zoom,reset,save"
         
-            p1 = figure(tools=TOOLS, plot_width=500, plot_height=500, x_axis_type="datetime", x_axis_label='Date')
+            p1 = figure(tools=TOOLS, plot_width=600, plot_height=600, x_axis_type="datetime", x_axis_label='Date')
             if app.closing_price != False:
                 p1.line(dates, closing_prices,line_width=2, color="blue", legend="closing price")
             if app.volume != False:
