@@ -78,9 +78,10 @@ def index():
         
             p1 = figure(tools=TOOLS, plot_width=600, plot_height=600, x_axis_type="datetime", x_axis_label='Date')
             if app.closing_price != False:
-                p1.line(dates, closing_prices,line_width=2, color="blue", legend="closing price")
+                p1.line(dates, closing_prices,line_width=2, color="blue", legend="Closing price")
             if app.volume != False:
-                p1.line(dates, volume,line_width=2, color="red",legend="volume/"+str(factor),)
+                #p1.line(dates, volume,line_width=2, color="red",legend="volume/"+str(factor),)
+                p1.line(dates, volume,line_width=2, color="red",legend="Volume",)
             #p1.circle(dates, closing_prices, fill_color="red", size=6)
         
             plots = {'Red': p1}
