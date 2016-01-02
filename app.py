@@ -31,8 +31,7 @@ def index():
         return render_template('index.html')
     else:
         app.stock_symbol = request.form['stock_symbol']
-        #app.closing_price = request.form['closing_price']
-        #app.volume = request.form['volume']
+        
         if request.form.get("closing_price"):
             app.closing_price = request.form['closing_price']
         else:
@@ -47,7 +46,7 @@ def index():
             app.script = ''
             app.div = ''
             
-            app.msg = 'You did not select any data (e.g., volume or closing price) to be displayed.'
+            app.msg = 'No data selected for display'
             return render_template('error_page.html', msg = app.msg)
             
         mydata = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=30")
