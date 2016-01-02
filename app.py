@@ -111,7 +111,7 @@ def index():
             
 @app.route('/graph_page')
 def graph_page():
-    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price, volume = app.volume, opening_price = app.opening_prices,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
+    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price, volume = app.volume, opening_price = app.opening_price,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
