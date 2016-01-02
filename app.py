@@ -48,11 +48,11 @@ def index():
         else:
             app.opening_price = False
 
-        if app.volume == False and app.closing_price == False:
+        if app.volume == False and app.closing_price == False and app.opening_price == False:
             app.script = ''
             app.div = ''
             
-            app.msg = 'No data selected for display'
+            app.msg = 'No options selected for display'
             return render_template('error_page.html', msg = app.msg)
             
         mydata = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=30")
