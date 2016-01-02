@@ -27,7 +27,7 @@ def index():
         app.stock_name = ''
         app.closing_price = ''
         app.volume = ''
-     #   app.opening_price = ''
+     	app.opening_price = ''
         
         return render_template('index.html') # this displays the form for data entry
     else:
@@ -43,10 +43,10 @@ def index():
         else:
             app.volume = False
             
-    #    if request.form.get("opening_price"):
-    #    	app.opening_price = request.form['opening_price']
-    #    else:
-    #   	app.opening_price = False	
+        if request.form.get("opening_price"):
+            app.opening_price = request.form['opening_price']
+        else:
+            app.opening_price = False
 
         if app.volume == False and app.closing_price == False:
             app.script = ''
