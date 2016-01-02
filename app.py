@@ -73,7 +73,7 @@ def index():
             dates=pd.to_datetime(np.array(df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
             closing_prices = (np.array(df.ix['data'][0])[:,int(ind_close[0])]).astype(float) #extract closing_prices
             volume = (np.array(df.ix['data'][0])[:,int(ind_vol[0])]).astype(float)
-            opening_prices = (np.array(df.ix['data'][0])[:,int(ind_openl[0])]).astype(float)
+            opening_prices = (np.array(df.ix['data'][0])[:,int(ind_open[0])]).astype(float)
             #factor=10**(len(str(int(volume[0]/closing_prices[0]))))
             #volume = volume/factor
             app.stock_name = df['dataset']['name']
