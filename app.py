@@ -20,16 +20,16 @@ def main():
 
 @app.route('/index',methods=['GET','POST'])
 def index():
-    if request.method == 'GET':  # this displays the form for data entry
+    if request.method == 'GET':  
         app.script = ''
         app.div = ''
         app.stock_symbol = ''
         app.stock_name = ''
         app.closing_price = ''
         app.volume = ''
-        app.opening_price = ''
+     #   app.opening_price = ''
         
-        return render_template('index.html')
+        return render_template('index.html') # this displays the form for data entry
     else:
         app.stock_symbol = request.form['stock_symbol']
         
@@ -43,12 +43,12 @@ def index():
         else:
             app.volume = False
             
-        if request.form.get("opening_price"):
-        	app.opening_price = request.form['opening_price']
-        else:
-        	app.opening_price = False	
+    #    if request.form.get("opening_price"):
+    #    	app.opening_price = request.form['opening_price']
+    #    else:
+    #   	app.opening_price = False	
 
-        if app.volume == False and app.closing_price == False and app.opening_price == False:
+        if app.volume == False and app.closing_price == False:
             app.script = ''
             app.div = ''
             
@@ -68,7 +68,7 @@ def index():
             df = pd.DataFrame(mydata.json()) # create pandas dataframe from mydata.json
             ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
             ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
-            ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
+            #ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
             ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
             dates=pd.to_datetime(np.array(df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
             closing_prices = (np.array(df.ix['data'][0])[:,int(ind_close[0])]).astype(float) #extract closing_prices
@@ -94,9 +94,9 @@ def index():
             if app.volume != False:
                 p1.line(dates, volume,line_width=2, color="red",legend="Volume",)
                 p1.yaxis.axis_label = 'Shares'
-            if app.opening_price != False:
-                p1.line(dates, opening_prices,line_width=2, color="red",legend="Opening price",)
-                p1.yaxis.axis_label = '$'
+          #  if app.opening_price != False:
+          #      p1.line(dates, opening_prices,line_width=2, color="red",legend="Opening price",)
+          #      p1.yaxis.axis_label = '$'
             
         
             plots = {'Red': p1}
@@ -111,7 +111,7 @@ def index():
             
 @app.route('/graph_page')
 def graph_page():
-    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price, volume = app.volume, opening_price = app.opening_price,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
+    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price, volume = app.volume,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
