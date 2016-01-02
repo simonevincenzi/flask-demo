@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Error page</title>
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+		
+			</head>
+		
+			<body>
+				<h1>Something went wrong.</h1> 
+				
+				<p>{{msg}}</p>
+		
+	    		<form id='stock' method='post' action='index' >
+	      		  <p>
+	    			  Try again<br /> 
+					  Stock symbol: <input type='text' name='stock_symbol' autocomplete="off"/><br />
+					  <input type="checkbox" name="closing_price" value="Y"> Closing price<br />
+					  <input type="checkbox" name="volume" value="Y"> Volume
+				  </p>
+	      		<p>
+	    			<input type='submit' value='Submit_stock' />
+	     	   </p>
+	    		</form>
+			</body>
+		</html>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Stock plotter</title>
+		<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+		<link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.0.min.css" type="text/css" />
+	
+	<script type="text/javascript" src="http://cdn.pydata.org/bokeh/release/bokeh-0.9.0.min.js"></script>
+	
+	{{scr}}
+	
+	
+	</head>
+		
+	<body>
+		<h1>Stock price for {{stock_symbol}}: {{stock_name}}</h1> 
+		<p>Data for the last 30 open-market days</p>
+		
+		{{diiv}}
+		
+		
+		
+	    <form id='stock' method='post' action='index' >
+	      <p>
+	    New stock symbol: <input type='text' name='stock_symbol' autocomplete="off"/><br />
+		<input type="checkbox" name="closing_price" value="Y"> Closing price<br />
+		<input type="checkbox" name="volume" value="Y"> Volume<br />
+	    <input type='submit' value='Submit' />
+	      </p>
+	    </form>
+		
+	</body>
+</html>
