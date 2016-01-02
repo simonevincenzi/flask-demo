@@ -52,10 +52,10 @@ def index():
             app.script = ''
             app.div = ''
             
-            app.msg = 'No options selected for display'
+            app.msg = 'No options selected for display. Select either volume, opening, or closing prices'
             return render_template('error_page.html', msg = app.msg)
             
-        mydata = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=30")
+        mydata = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=60")
         
         if 'quandl_error' in mydata.json(): # if error is returned from the query
             app.script = ''
@@ -68,12 +68,12 @@ def index():
             df = pd.DataFrame(mydata.json()) # create pandas dataframe from mydata.json
             ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
             ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
-            #ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
+            ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
             ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
             dates=pd.to_datetime(np.array(df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
             closing_prices = (np.array(df.ix['data'][0])[:,int(ind_close[0])]).astype(float) #extract closing_prices
             volume = (np.array(df.ix['data'][0])[:,int(ind_vol[0])]).astype(float)
-            #opening_prices = (np.array(df.ix['data'][0])[:,int(ind_open[0])]).astype(float)
+            opening_prices = (np.array(df.ix['data'][0])[:,int(ind_open[0])]).astype(float)
             #factor=10**(len(str(int(volume[0]/closing_prices[0]))))
             #volume = volume/factor
             app.stock_name = df['dataset']['name']
