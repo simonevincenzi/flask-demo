@@ -55,7 +55,7 @@ def index():
             app.script = ''
             app.div = ''
             
-            app.msg = 'The entered stock symbol "' + app.stock_symbol + '" is invalid.'
+            app.msg = 'Stock symbol "' + app.stock_symbol + '" invalid. Try again'
             return render_template('error_page.html', msg = app.msg)
             
         else:
@@ -63,7 +63,7 @@ def index():
             dates=pd.to_datetime(np.array(df.ix['data'][0])[:,0])
             closing_prices = (np.array(df.ix['data'][0])[:,4]).astype(float)
             volume = (np.array(df.ix['data'][0])[:,5]).astype(float)
-            factor=10**(len(str(int(volume[0]/closing_prices[0]))))
+            #factor=10**(len(str(int(volume[0]/closing_prices[0]))))
             volume = volume/factor
             app.stock_name = df['dataset']['name']
             extra_text_index = app.stock_name.find("Prices, Dividends, Splits and Trading Volume")
