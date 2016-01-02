@@ -8,3 +8,4 @@ requests>=2.2.1
 simplejson==3.8.1
 Quandl==2.8.9
 bokeh==0.10.0
+gunicorn==19.4.3
