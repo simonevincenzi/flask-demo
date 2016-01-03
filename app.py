@@ -82,7 +82,7 @@ def index():
         else:
         	df0 = pd.read_json(stock_data.text)['dataset']
         	stock_df  = pd.DataFrame(df0['data'],columns=df0['column_names'])
-        	dates = pd.to_datetime(df['Date'])
+        	dates = pd.to_datetime(np.array(df['Date']))
         	closing_prices = stock_df['Close']
         	volume = stock_df['Volume']
         	opening_prices = stock_df['Open']
