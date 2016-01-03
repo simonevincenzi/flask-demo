@@ -98,8 +98,8 @@ def index():
                 p1.line(dates, volume,line_width=2, color="red",legend="Volume",)
                 p1.yaxis.axis_label = 'Shares'
           	if app.opening_price != False:
-                p1.line(dates, opening_prices,line_width=2, color="blue", legend="Opening price")
-                p1.yaxis.axis_label = '$
+            	p1.line(dates, opening_prices,line_width=2, color="blue", legend="Opening price")
+            	p1.yaxis.axis_label = '$
             
         
             plots = {'Red': p1}
