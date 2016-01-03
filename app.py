@@ -107,7 +107,7 @@ def index():
 				plot_stock.yaxis.axis_label = '$'
 				plot_stock.circle(dates, closing_prices, fill_color="white", size=8)
 			if app.volume != False:
-				plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume")
+				plot_stock.line(dates, np.array(volume),line_width=3, color="brown",legend="Volume")
 				plot_stock.yaxis.axis_label = 'Shares'
 				plot_stock.circle(dates, volume, fill_color="white", size=8)
 			if app.daily_diff_price != False:
