@@ -61,8 +61,14 @@ def index():
             
             app.msg = 'No options selected for display. Select either volume, opening, closing prices, or closing - opening'
             return render_template('error_page.html', msg = app.msg)
-            
-        stock_data = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=60") # last 60 days of open-market data
+        
+        url_prefix = "https://www.quandl.com/api/v3/datasets/WIKI"
+        today = datetime.date.today()
+        startdate = today - datetime.timedelta(60)
+        quandl_api_call_string = "%s/%s.json?start_date=%s&end_date=%s"%(url_prefix,app.stock_symbol,startdate,today)
+        #print quandl_api_call_string
+        stock_data = requests.get(quandl_api_call_string)
+        #stock_data = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=60") # last 60 days of open-market data
         
         if 'quandl_error' in stock_data.json(): # when the stock symbol is not correct, a field of stock_data.json is quandl_error
             app.script = ''
