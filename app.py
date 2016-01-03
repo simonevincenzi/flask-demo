@@ -70,6 +70,10 @@ def index():
             ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
             ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
             ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
+            ind_date = 0
+            ind_close = 4
+            ind_open = 1
+            ind_vol = 5
             dates=pd.to_datetime(np.array(df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
             closing_prices = (np.array(df.ix['data'][0])[:,int(ind_close[0])]).astype(float) #extract closing_prices
             volume = (np.array(df.ix['data'][0])[:,int(ind_vol[0])]).astype(float)
