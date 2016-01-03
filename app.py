@@ -82,9 +82,9 @@ def index():
         else:
         	df0 = pd.read_json(stock_data.text)['dataset']
         	stock_df  = pd.DataFrame(df0['data'],columns=df0['column_names'])
-        	dates = pd.to_datetime(np.array(df['Date']))
+        	dates = pd.to_datetime(np.array(stock_df['Date']))
         	closing_prices = stock_df['Close']
-        	volume = stock_df['Volume']
+        	volume = np.array(stock_df['Volume'])
         	opening_prices = stock_df['Open']
         	diff_prices = closing_prices - opening_prices
         	app.stock_name = df0['name']
@@ -107,7 +107,7 @@ def index():
 				plot_stock.yaxis.axis_label = '$'
 				plot_stock.circle(dates, closing_prices, fill_color="white", size=8)
 			if app.volume != False:
-				plot_stock.line(dates, np.array(volume),line_width=3, color="brown",legend="Volume")
+				plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume")
 				plot_stock.yaxis.axis_label = 'Shares'
 				plot_stock.circle(dates, volume, fill_color="white", size=8)
 			if app.daily_diff_price != False:
