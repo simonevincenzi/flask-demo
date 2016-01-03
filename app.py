@@ -103,7 +103,7 @@ def index():
             # select the tools we want
             TOOLS="pan,wheel_zoom,box_zoom,reset,save" # it would be nice to have the hover option, maybe later
         
-            plot_stock = figure(tools=TOOLS, plot_width=600, plot_height=600, x_axis_type="datetime", x_axis_label='Date')
+            plot_stock = figure(tools=TOOLS, plot_width=400, plot_height=400, x_axis_type="datetime", x_axis_label='Date')
             if app.opening_price != False:  # it is never set = T
           		plot_stock.yaxis.axis_label = '$'
           		plot_stock.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
