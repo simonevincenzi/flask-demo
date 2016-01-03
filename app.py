@@ -88,7 +88,7 @@ def index():
         	opening_prices = stock_df['Open']
         	diff_prices = closing_prices - opening_prices
         	app.stock_name = df0['name']
-            # I want to report the name of the company when plotting, but I need to delete 
+            # I want to report the name of the company when plotting, but I delete 
             # Prices, Dividends, Splits and Trading Volume, which is always after. If it is
             # not present I get back a -1
             extra_text_index = app.stock_name.find("Prices")
