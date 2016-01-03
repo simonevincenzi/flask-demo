@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title>Stock plotter</title>
+		<title>Plot of stock attributes</title>
 		<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
 		<link rel="stylesheet" href="http://cdn.pydata.org/bokeh/release/bokeh-0.9.0.min.css" type="text/css" />
 	
@@ -14,8 +14,8 @@
 	</head>
 		
 	<body>
-		<h1>Stock price for {{stock_symbol}}: {{stock_name}}</h1> 
-		<p>Data for the last 60 open-market days</p>
+		<h1>{{stock_symbol}}: {{stock_name}}</h1> 
+		<p>Data for the last 60 (open-market) days</p>
 		
 		{{diiv}}
 		
