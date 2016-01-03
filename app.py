@@ -65,7 +65,7 @@ def index():
         # get last 60 days of open-market data
         url_prefix = "https://www.quandl.com/api/v3/datasets/WIKI"
         today = datetime.date.today()
-        startdate = today - datetime.timedelta(60)
+        startdate = today - datetime.timedelta(30)
         quandl_api_call_string = "%s/%s.json?start_date=%s&end_date=%s"%(url_prefix,app.stock_symbol,startdate,today)
         #print quandl_api_call_string
         stock_data = requests.get(quandl_api_call_string)
@@ -88,9 +88,9 @@ def index():
         	opening_prices = np.array(stock_df['Open'])
         	diff_prices = closing_prices - opening_prices
         	app.stock_name = df0['name']
-        	extra_text_index = app.stock_name.find("Prices")
-        	if extra_text_index != -1:
-        		app.stock_name = app.stock_name[0:extra_text_index-1] # I only keep the part before Prices etc.
+        	index_stock_extra = app.stock_name.find("Prices")
+        	if index_stock_extra != -1:
+        		app.stock_name = app.stock_name[0:index_stock_extra-1] # I only keep the part before Prices etc.
             
             ######## Plot with Bokeh ##############################
         
