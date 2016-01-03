@@ -62,7 +62,7 @@ def index():
             app.msg = 'No options selected for display. Select either volume, opening, closing prices, or closing - opening'
             return render_template('error_page.html', msg = app.msg)
         
-        # get last 60 days of open-market data
+        # get last 30 days of open-market data
         url_prefix = "https://www.quandl.com/api/v3/datasets/WIKI"
         today = datetime.date.today()
         startdate = today - datetime.timedelta(30)
