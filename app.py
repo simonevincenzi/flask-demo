@@ -89,10 +89,10 @@ def index():
             #ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
             #ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
             # for some reason the indexes are not kept, troubling
-            ind_date = 0
-            ind_close = 4
-            ind_open = 1
-            ind_vol = 5
+            #ind_date = 0
+            #ind_close = 4
+            #ind_open = 1
+            #ind_vol = 5
             #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
             #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,ind_date]) #extract the dates (position 0)
             dates = stock_df['Date']
