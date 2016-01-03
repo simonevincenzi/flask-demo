@@ -62,13 +62,13 @@ def index():
             app.msg = 'No options selected for display. Select either volume, opening, closing prices, or closing - opening'
             return render_template('error_page.html', msg = app.msg)
         
+        # get last 60 days of open-market data
         url_prefix = "https://www.quandl.com/api/v3/datasets/WIKI"
         today = datetime.date.today()
         startdate = today - datetime.timedelta(60)
         quandl_api_call_string = "%s/%s.json?start_date=%s&end_date=%s"%(url_prefix,app.stock_symbol,startdate,today)
         #print quandl_api_call_string
         stock_data = requests.get(quandl_api_call_string)
-        #stock_data = requests.get("https://www.quandl.com/api/v3/datasets/WIKI/"+app.stock_symbol+".json?rows=60") # last 60 days of open-market data
         
         if 'quandl_error' in stock_data.json(): # when the stock symbol is not correct, a field of stock_data.json is quandl_error
             app.script = ''
@@ -80,7 +80,10 @@ def index():
          ## the problem is that occasionally the query comes back empty, I do not know how to test for it because locally it does not happen   
             
         else:
-            stock_df = pd.DataFrame(stock_data.json()) # create pandas dataframe from stock_data.json
+        	df0 = pd.read_json(stock_data.text)['dataset']
+        	stock_df  = pd.DataFrame(df0['data'],columns=df0['column_names'])
+        	stock_df['Date'] = pd.to_datetime(df['Date'])
+            #stock_df = pd.DataFrame(stock_data.json()) # create pandas dataframe from stock_data.json
             #ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
             #ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
             #ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
@@ -91,12 +94,17 @@ def index():
             ind_open = 1
             ind_vol = 5
             #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
-            dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,ind_date]) #extract the dates (position 0)
-            closing_prices = (np.array(stock_df.ix['data'][0])[:,ind_close]).astype(float) #extract closing_prices
-            volume = (np.array(stock_df.ix['data'][0])[:,ind_vol]).astype(float) # should be integer, but no problem
-            opening_prices = (np.array(stock_df.ix['data'][0])[:,ind_open]).astype(float)
+            #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,ind_date]) #extract the dates (position 0)
+            dates = stock_df['Date']
+            #closing_prices = (np.array(stock_df.ix['data'][0])[:,ind_close]).astype(float) #extract closing_prices
+            closing_prices = stock_df['Close']
+            #volume = (np.array(stock_df.ix['data'][0])[:,ind_vol]).astype(float) # should be integer, but no problem
+            volume = stock_df['Volume']
+            #opening_prices = (np.array(stock_df.ix['data'][0])[:,ind_open]).astype(float)
+            opening_prices = stock_df['Open']
             diff_prices = closing_prices - opening_prices
-            app.stock_name = stock_df['dataset']['name']
+            #app.stock_name = stock_df['dataset']['name']
+            app.stock_name = df0['name']
             # I want to report the name of the company when plotting, but I need to delete 
             # Prices, Dividends, Splits and Trading Volume, which is always after. If it is
             # not present I get back a -1
@@ -119,11 +127,11 @@ def index():
                 plot_stock.yaxis.axis_label = '$'
                 plot_stock.circle(dates, closing_prices, fill_color="white", size=8)
             if app.volume != False:
-                plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume",)
+                plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume")
                 plot_stock.yaxis.axis_label = 'Shares'
                 plot_stock.circle(dates, volume, fill_color="white", size=8)
             if app.daily_diff_price != False:
-                plot_stock.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices",)
+                plot_stock.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices")
                 plot_stock.yaxis.axis_label = '$'
                 plot_stock.circle(dates, diff_prices, fill_color="white", size=8)
                 low_box = BoxAnnotation(plot=plot_stock, top=0, fill_alpha=0.1, fill_color='red')
