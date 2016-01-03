@@ -82,29 +82,12 @@ def index():
         else:
         	df0 = pd.read_json(stock_data.text)['dataset']
         	stock_df  = pd.DataFrame(df0['data'],columns=df0['column_names'])
-        	#stock_df['Date'] = pd.to_datetime(df['Date'])
-            #stock_df = pd.DataFrame(stock_data.json()) # create pandas dataframe from stock_data.json
-            #ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
-            #ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
-            #ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
-            #ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
-            # for some reason the indexes are not kept, troubling
-            #ind_date = 0
-            #ind_close = 4
-            #ind_open = 1
-            #ind_vol = 5
-            #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
-            #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,ind_date]) #extract the dates (position 0)
-            dates = pd.to_datetime(df['Date'])
-            #closing_prices = (np.array(stock_df.ix['data'][0])[:,ind_close]).astype(float) #extract closing_prices
-            closing_prices = stock_df['Close']
-            #volume = (np.array(stock_df.ix['data'][0])[:,ind_vol]).astype(float) # should be integer, but no problem
-            volume = stock_df['Volume']
-            #opening_prices = (np.array(stock_df.ix['data'][0])[:,ind_open]).astype(float)
-            opening_prices = stock_df['Open']
-            diff_prices = closing_prices - opening_prices
-            #app.stock_name = stock_df['dataset']['name']
-            app.stock_name = df0['name']
+        	dates = pd.to_datetime(df['Date'])
+        	closing_prices = stock_df['Close']
+        	volume = stock_df['Volume']
+        	opening_prices = stock_df['Open']
+        	diff_prices = closing_prices - opening_prices
+        	app.stock_name = df0['name']
             # I want to report the name of the company when plotting, but I need to delete 
             # Prices, Dividends, Splits and Trading Volume, which is always after. If it is
             # not present I get back a -1
