@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, redirect, Markup
 from bokeh.plotting import figure, output_file, show # standard bokeh import
-from bokeh.models import Range1d
+from bokeh.models import Range1d, BoxAnnotation
 from bokeh.embed import components
 import time
 import datetime
@@ -122,7 +122,7 @@ def index():
                 plot_stock.circle(dates, diff_prices, fill_color="white", size=8)
                 low_box = BoxAnnotation(plot=plot_stock, top=0, fill_alpha=0.1, fill_color='red')
                 high_box = BoxAnnotation(plot=plot_stock, bottom=0, fill_alpha=0.1, fill_color='green')
-                #plot_stock.renderers.extend([low_box, high_box])
+                plot_stock.renderers.extend([low_box, high_box])
           	
             
         
