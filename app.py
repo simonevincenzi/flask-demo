@@ -120,9 +120,9 @@ def index():
                 plot_stock.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices",)
                 plot_stock.yaxis.axis_label = '$'
                 plot_stock.circle(dates, diff_prices, fill_color="white", size=8)
-            	low_box = BoxAnnotation(plot=plot_stock, top=0, fill_alpha=0.1, fill_color='red')
-				high_box = BoxAnnotation(plot=plot_stock, bottom=0, fill_alpha=0.1, fill_color='blue')
-				plot_stock.renderers.extend([low_box, high_box])
+                low_box = BoxAnnotation(plot=plot_stock, top=0, fill_alpha=0.1, fill_color='red')
+                high_box = BoxAnnotation(plot=plot_stock, bottom=0, fill_alpha=0.1, fill_color='blue')
+                plot_stock.renderers.extend([low_box, high_box])
           	
             
         
