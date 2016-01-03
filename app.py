@@ -82,7 +82,7 @@ def index():
         else:
         	df0 = pd.read_json(stock_data.text)['dataset']
         	stock_df  = pd.DataFrame(df0['data'],columns=df0['column_names'])
-        	stock_df['Date'] = pd.to_datetime(df['Date'])
+        	#stock_df['Date'] = pd.to_datetime(df['Date'])
             #stock_df = pd.DataFrame(stock_data.json()) # create pandas dataframe from stock_data.json
             #ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
             #ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
@@ -95,7 +95,7 @@ def index():
             #ind_vol = 5
             #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,int(ind_date[0])]) #extract the dates (position 0)
             #dates=pd.to_datetime(np.array(stock_df.ix['data'][0])[:,ind_date]) #extract the dates (position 0)
-            dates = stock_df['Date']
+            dates = pd.to_datetime(df['Date'])
             #closing_prices = (np.array(stock_df.ix['data'][0])[:,ind_close]).astype(float) #extract closing_prices
             closing_prices = stock_df['Close']
             #volume = (np.array(stock_df.ix['data'][0])[:,ind_vol]).astype(float) # should be integer, but no problem
