@@ -91,9 +91,12 @@ def index():
             opening_prices = (np.array(stock_df.ix['data'][0])[:,ind_open]).astype(float)
             diff_prices = closing_prices - opening_prices
             app.stock_name = stock_df['dataset']['name']
-            extra_text_index = app.stock_name.find("Prices, Dividends, Splits and Trading Volume")
+            # I want to report the name of the company when plotting, but I need to delete 
+            # Prices, Dividends, Splits and Trading Volume, which is always after. If it is
+            # not present I get back a -1
+            extra_text_index = app.stock_name.find("Prices")
             if extra_text_index != -1:
-                app.stock_name = app.stock_name[0:extra_text_index-1]
+                app.stock_name = app.stock_name[0:extra_text_index-1] # I only keep the part before Prices etc.
             
             ######## Plot with Bokeh ##############################
         
@@ -111,7 +114,7 @@ def index():
                 p1.line(dates, volume,line_width=3, color="brown",legend="Volume",)
                 p1.yaxis.axis_label = 'Shares'
             if app.daily_diff_price != False:
-                p1.line(dates, diff_prices,line_width=3, color="brown",legend="Volume",)
+                p1.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices",)
                 p1.yaxis.axis_label = '$'
           	
             
