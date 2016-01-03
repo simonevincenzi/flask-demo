@@ -95,40 +95,40 @@ def index():
             ######## Plot with Bokeh ##############################
         
             # select the tools we want
-            TOOLS="pan,wheel_zoom,box_zoom,reset,save" # it would be nice to have the hover option, maybe later
+			TOOLS="pan,wheel_zoom,box_zoom,reset,save" # it would be nice to have the hover option, maybe later
         
-            plot_stock = figure(tools=TOOLS, plot_width=480, plot_height=480, x_axis_type="datetime", x_axis_label='Date')
-            if app.opening_price != False:  # it is never set = T
-          		plot_stock.yaxis.axis_label = '$'
-          		plot_stock.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
-          		plot_stock.circle(dates, opening_prices, fill_color="white", size=8)
-            if app.closing_price != False:
-                plot_stock.line(dates, closing_prices,line_width=3, color="blue", legend="Closing price")
-                plot_stock.yaxis.axis_label = '$'
-                plot_stock.circle(dates, closing_prices, fill_color="white", size=8)
-            if app.volume != False:
-                plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume")
-                plot_stock.yaxis.axis_label = 'Shares'
-                plot_stock.circle(dates, volume, fill_color="white", size=8)
-            if app.daily_diff_price != False:
-                plot_stock.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices")
-                plot_stock.yaxis.axis_label = '$'
-                plot_stock.circle(dates, diff_prices, fill_color="white", size=8)
-                low_box = BoxAnnotation(plot=plot_stock, top=0, fill_alpha=0.1, fill_color='red')
-                high_box = BoxAnnotation(plot=plot_stock, bottom=0, fill_alpha=0.1, fill_color='green')
+			plot_stock = figure(tools=TOOLS, plot_width=480, plot_height=480, x_axis_type="datetime", x_axis_label='Date')
+			if app.opening_price != False:  # it is never set = T
+				plot_stock.yaxis.axis_label = '$'
+				plot_stock.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
+				plot_stock.circle(dates, opening_prices, fill_color="white", size=8)
+			if app.closing_price != False:
+				plot_stock.line(dates, closing_prices,line_width=3, color="blue", legend="Closing price")
+				plot_stock.yaxis.axis_label = '$'
+				plot_stock.circle(dates, closing_prices, fill_color="white", size=8)
+			if app.volume != False:
+				plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume")
+				plot_stock.yaxis.axis_label = 'Shares'
+				plot_stock.circle(dates, volume, fill_color="white", size=8)
+			if app.daily_diff_price != False:
+				plot_stock.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices")
+				plot_stock.yaxis.axis_label = '$'
+				plot_stock.circle(dates, diff_prices, fill_color="white", size=8)
+				low_box = BoxAnnotation(plot=plot_stock, top=0, fill_alpha=0.1, fill_color='red')
+				high_box = BoxAnnotation(plot=plot_stock, bottom=0, fill_alpha=0.1, fill_color='green')
                 #plot_stock.renderers.extend([low_box, high_box])
           	
             
         
-            plots = {'Red': plot_stock}
+			plots = {'Red': plot_stock}
         
-            script, div = components(plots)        
-            app.script = script
-            app.div = div.values()[0]
+			script, div = components(plots)        
+			app.script = script
+			app.div = div.values()[0]
             ##################################################
             ##################################################
 
-            return redirect('/graph_page') # go to graph page for the plots
+			return redirect('/graph_page') # go to graph page for the plots
             
 @app.route('/graph_page')
 def graph_page():
