@@ -91,15 +91,16 @@ def index():
             TOOLS="pan,wheel_zoom,box_zoom,reset,save"
         
             p1 = figure(tools=TOOLS, plot_width=600, plot_height=600, x_axis_type="datetime", x_axis_label='Date')
+            if app.opening_price != False:
+          		p1.yaxis.axis_label = '$'
+          		p1.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
             if app.closing_price != False:
                 p1.line(dates, closing_prices,line_width=3, color="blue", legend="Closing price")
                 p1.yaxis.axis_label = '$'
             if app.volume != False:
                 p1.line(dates, volume,line_width=3, color="red",legend="Volume",)
                 p1.yaxis.axis_label = 'Shares'
-          	if app.opening_price != False:
-          		p1.yaxis.axis_label = '$'
-          		p1.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
+          	
             
         
             plots = {'Red': p1}
