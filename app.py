@@ -79,8 +79,6 @@ def index():
             closing_prices = (np.array(df.ix['data'][0])[:,ind_close]).astype(float) #extract closing_prices
             volume = (np.array(df.ix['data'][0])[:,ind_vol]).astype(float)
             opening_prices = (np.array(df.ix['data'][0])[:,ind_open]).astype(float)
-            #factor=10**(len(str(int(volume[0]/closing_prices[0]))))
-            #volume = volume/factor
             app.stock_name = df['dataset']['name']
             extra_text_index = app.stock_name.find("Prices, Dividends, Splits and Trading Volume")
             if extra_text_index != -1:
@@ -99,9 +97,9 @@ def index():
             if app.volume != False:
                 p1.line(dates, volume,line_width=2, color="red",legend="Volume",)
                 p1.yaxis.axis_label = 'Shares'
-          #  if app.opening_price != False:
-          #      p1.line(dates, opening_prices,line_width=2, color="red",legend="Opening price",)
-          #      p1.yaxis.axis_label = '$'
+          	if app.opening_price != False:
+                p1.line(dates, opening_prices,line_width=2, color="red",legend="Opening price",)
+                p1.yaxis.axis_label = '$'
             
         
             plots = {'Red': p1}
@@ -116,7 +114,7 @@ def index():
             
 @app.route('/graph_page')
 def graph_page():
-    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price, volume = app.volume,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
+    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price,opening_price = app.opening_price,volume = app.volume,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
