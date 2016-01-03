@@ -103,23 +103,24 @@ def index():
             # select the tools we want
             TOOLS="pan,wheel_zoom,box_zoom,reset,save" # it would be nice to have the hover option, maybe later
         
-            p1 = figure(tools=TOOLS, plot_width=600, plot_height=600, x_axis_type="datetime", x_axis_label='Date')
+            plot_stock = figure(tools=TOOLS, plot_width=600, plot_height=600, x_axis_type="datetime", x_axis_label='Date')
             if app.opening_price != False:  # it is never set = T
-          		p1.yaxis.axis_label = '$'
-          		p1.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
+          		plot_stock.yaxis.axis_label = '$'
+          		plot_stock.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
+          		plot_stock.circle(dates, opening_prices, fill_color="white", size=8)
             if app.closing_price != False:
-                p1.line(dates, closing_prices,line_width=3, color="blue", legend="Closing price")
-                p1.yaxis.axis_label = '$'
+                plot_stock.line(dates, closing_prices,line_width=3, color="blue", legend="Closing price")
+                plot_stock.yaxis.axis_label = '$'
             if app.volume != False:
-                p1.line(dates, volume,line_width=3, color="brown",legend="Volume",)
-                p1.yaxis.axis_label = 'Shares'
+                plot_stock.line(dates, volume,line_width=3, color="brown",legend="Volume",)
+                plot_stock.yaxis.axis_label = 'Shares'
             if app.daily_diff_price != False:
-                p1.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices",)
-                p1.yaxis.axis_label = '$'
+                plot_stock.line(dates, diff_prices,line_width=3, color="brown",legend="Difference between Closing and Opening prices",)
+                plot_stock.yaxis.axis_label = '$'
           	
             
         
-            plots = {'Red': p1}
+            plots = {'Red': plot_stock}
         
             script, div = components(plots)        
             app.script = script
