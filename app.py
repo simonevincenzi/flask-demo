@@ -66,10 +66,10 @@ def index():
             
         else:
             df = pd.DataFrame(mydata.json()) # create pandas dataframe from mydata.json
-            ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
-            ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
-            ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
-            ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
+            #ind_date = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Date']
+            #ind_close = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Close']
+            #ind_open = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Open']
+            #ind_vol = [index for (index, x) in enumerate(df.ix['column_names'].dataset) if x == 'Volume']
             ind_date = 0
             ind_close = 4
             ind_open = 1
@@ -98,6 +98,7 @@ def index():
                 p1.line(dates, volume,line_width=3, color="red",legend="Volume",)
                 p1.yaxis.axis_label = 'Shares'
           	if app.opening_price != False:
+          		p1.yaxis.axis_label = '$'
           		p1.line(dates, opening_prices, line_width = 3, color = "green", legend = "Opening price")
             
         
@@ -113,7 +114,9 @@ def index():
             
 @app.route('/graph_page')
 def graph_page():
-    return render_template('graph.html',stock_symbol = app.stock_symbol, closing_price = app.closing_price,opening_price = app.opening_price,volume = app.volume,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
+    return render_template('graph.html',stock_symbol = app.stock_symbol, 
+    closing_price = app.closing_price,opening_price = app.opening_price,
+    volume = app.volume,stock_name = app.stock_name, scr = Markup(app.script), diiv = Markup(app.div))
 
 if __name__ == '__main__':
   app.run(host='0.0.0.0')
